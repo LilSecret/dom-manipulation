@@ -38,3 +38,46 @@
  */
 
 // Your code goes here...
+const favoritesStr = 'favorites';
+const favorites = JSON.parse(localStorage.getItem(favoritesStr));
+
+const favsToRed = () => {
+  if (favorites) {
+    for (let fav of favorites) {
+      document.getElementById(fav).style.backgroundColor = "red";
+    }
+  } else {
+    localStorage.setItem(favoritesStr, JSON.stringify([]));
+  }
+}
+
+const addFav = (id) => {
+  favorites.push(id);
+  localStorage.setItem(favoritesStr, JSON.stringify(favorites));
+}
+
+const removeFav = (id) => {
+  favorites.splice(favorites.indexOf(id), 1);
+  localStorage.setItem(favoritesStr, JSON.stringify(favorites));
+}
+
+const toggleColor = (id) => {
+  if (document.getElementById(id).style.backgroundColor === 'red') {
+    document.getElementById(id).style.backgroundColor = 'white';
+    removeFav(id);
+  } else {
+    document.getElementById(id).style.backgroundColor = 'red';
+    addFav(id);
+  }
+}
+
+const updateFavs = (e) => {
+  const item = e.target;
+  if (item.className === 'card') {
+    toggleColor(item.id);
+  }
+}
+
+favsToRed();
+
+document.querySelector('.cardsContainer').addEventListener('click', updateFavs);
