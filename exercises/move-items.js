@@ -50,19 +50,16 @@ const favs = document.getElementById('favs');
 const updateCollections = (id, direction) => {
   const item = document.getElementById(id);
   const parent = item.parentElement.children;
+  const icon = direction === 'toFavs' ? 'fa-heart-circle-plus' : 'fa-heart-crack';
+  const newParent = direction === 'toFavs' ? main : favs;
 
   for (let i = 0; i < parent.length; i++) {
     if (parent[i].id == id) {
       item.parentElement.removeChild(parent[i]);
     }
   }
-  if (direction === 'toMain') {
-    item.children[0].outerHTML = `<i class="fa-solid fa-heart-crack"></i>`;
-    favs.appendChild(item);
-  } else if (direction === 'toFavs') {
-    item.children[0].outerHTML = `<i class="fa-solid fa-heart-circle-plus"></i>`;
-    main.appendChild(item);
-  }
+  item.children[0].outerHTML = `<i class="fa-solid ${icon}"></i>`;
+  newParent.appendChild(item)
 }
 
 /**
