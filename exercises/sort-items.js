@@ -42,15 +42,11 @@ const sortData = (direction) => {
   const container = document.getElementById('main');
   const arrayItems = Array.from(allItems);
   
-  if (direction === 'asc') {
-    arrayItems.sort((a, b) => {
-      return parseInt(a.id) - parseInt(b.id);
-    })
-  } else if (direction === 'desc') {
-    arrayItems.sort((a, b) => {
-      return parseInt(b.id) - parseInt(a.id);
-    })
-  }
+  arrayItems.sort((a, b) => {
+    const one = direction === 'asc' ? a : b;
+    const two = direction === 'asc' ? b : a;
+    return parseInt(one.id) - parseInt(two.id);
+  })
   for (let item of arrayItems) {
     container.appendChild(item);
   }
