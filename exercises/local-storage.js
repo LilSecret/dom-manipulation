@@ -39,11 +39,11 @@
 
 // Your code goes here...
 const favoritesStr = 'favorites';
-const favorites = JSON.parse(localStorage.getItem(favoritesStr));
 
 const favsToRed = () => {
-  if (favorites) {
-    for (let fav of favorites) {
+  const favoritesArr = JSON.parse(localStorage.getItem(favoritesStr));
+  if (favoritesArr) {
+    for (let fav of favoritesArr) {
       document.getElementById(fav).style.backgroundColor = "red";
     }
   } else {
@@ -52,13 +52,15 @@ const favsToRed = () => {
 }
 
 const addFav = (id) => {
-  favorites.push(id);
-  localStorage.setItem(favoritesStr, JSON.stringify(favorites));
+  const favoritesArr = JSON.parse(localStorage.getItem(favoritesStr));
+  favoritesArr.push(id);
+  localStorage.setItem(favoritesStr, JSON.stringify(favoritesArr));
 }
 
 const removeFav = (id) => {
-  favorites.splice(favorites.indexOf(id), 1);
-  localStorage.setItem(favoritesStr, JSON.stringify(favorites));
+  const favoritesArr = JSON.parse(localStorage.getItem(favoritesStr));
+  favoritesArr.splice(favoritesArr.indexOf(id), 1);
+  localStorage.setItem(favoritesStr, JSON.stringify(favoritesArr));
 }
 
 const toggleColor = (id) => {
