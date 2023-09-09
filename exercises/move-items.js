@@ -48,19 +48,38 @@ const favs = document.getElementById('favs');
 
 // Your code goes here
 const updateCollections = (id, direction) => {
-  const item = document.getElementById(id);
-  const parent = item.parentElement.children;
-  const icon = direction === 'toFavs' ? 'fa-heart-circle-plus' : 'fa-heart-crack';
-  const newParent = direction === 'toFavs' ? main : favs;
+  const element = document.getElementById(id);
 
-  for (let i = 0; i < parent.length; i++) {
-    if (parent[i].id == id) {
-      item.parentElement.removeChild(parent[i]);
-    }
+  if (element) {
+    element
+      .querySelector('i')
+      .classList.toggle("fa-heart-crack", direction === "toFavs");
+    element
+      .querySelector('i')
+      .classList.toggle("fa-heart-circle-plus", direction === "toMain");
+    
+    const targetParent = 
+      direction === "toFavs"
+      ? document.getElementById("favs")
+      : document.getElementById("main");
+    targetParent.appendChild(element);
   }
-  item.children[0].outerHTML = `<i class="fa-solid ${icon}"></i>`;
-  newParent.appendChild(item)
 }
+
+// const updateCollections = (id, direction) => {
+//   const item = document.getElementById(id);
+//   const parent = item.parentElement.children;
+//   const icon = direction === 'toFavs' ? 'fa-heart-circle-plus' : 'fa-heart-crack';
+//   const newParent = direction === 'toFavs' ? main : favs;
+
+//   for (let i = 0; i < parent.length; i++) {
+//     if (parent[i].id == id) {
+//       item.parentElement.removeChild(parent[i]);
+//     }
+//   }
+//   item.children[0].outerHTML = `<i class="fa-solid ${icon}"></i>`;
+//   newParent.appendChild(item)
+// }
 
 /**
  * @task
@@ -77,12 +96,21 @@ const updateCollections = (id, direction) => {
  */
 
 // Your code goes here...
-for (let item of allItems) {
-  item.addEventListener('click', function() {
-    const parentId = this.parentElement.id;
-    const direction = `to${parentId.charAt(0).toUpperCase() + parentId.slice(1)}`;
-    const elmId = this.id;
-    updateCollections(elmId, direction);
+allItems.forEach((item) => {
+  item.addEventListener("click", function() {
+    const itemId = this.id;
+    const parentId = item.parentElement.id;
+    const direction = parentId === "main" ? "toFavs" : "toMain";
+    updateCollections(itemId, direction);
   })
-}
+})
+
+// for (let item of allItems) {
+//   item.addEventListener('click', function() {
+//     const parentId = this.parentElement.id;
+//     const direction = `to${parentId.charAt(0).toUpperCase() + parentId.slice(1)}`;
+//     const elmId = this.id;
+//     updateCollections(elmId, direction);
+//   })
+// }
 
