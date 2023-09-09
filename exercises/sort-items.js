@@ -39,18 +39,32 @@ const sortBtn = document.querySelectorAll('.sortBtn');
 
 // Your code goes here...
 const sortData = (direction) => {
-  const container = document.getElementById('main');
-  const arrayItems = Array.from(allItems);
-  
-  arrayItems.sort((a, b) => {
-    const one = direction === 'asc' ? a : b;
-    const two = direction === 'asc' ? b : a;
-    return parseInt(one.id) - parseInt(two.id);
-  })
-  for (let item of arrayItems) {
-    container.appendChild(item);
+    const container = document.getElementById('main');
+    const arrayItems = Array.from(allItems);
+    
+    arrayItems.sort((a, b) => {
+      const idA = parseInt(a.id);
+      const idB = parseInt(b.id);
+      return direction === 'asc' ? idA - idB : idB - idA;
+    })
+    arrayItems.forEach((item) => {
+      container.appendChild(item);
+    })
   }
-}
+
+// const sortData = (direction) => {
+//   const container = document.getElementById('main');
+//   const arrayItems = Array.from(allItems);
+  
+//   arrayItems.sort((a, b) => {
+//     const one = direction === 'asc' ? a : b;
+//     const two = direction === 'asc' ? b : a;
+//     return parseInt(one.id) - parseInt(two.id);
+//   })
+//   for (let item of arrayItems) {
+//     container.appendChild(item);
+//   }
+// }
 
 /**
  * @task
@@ -61,9 +75,13 @@ const sortData = (direction) => {
  */
 
 // Your code goes here...
-for (let btn of sortBtn) {
+sortBtn.forEach((btn) => {
   btn.addEventListener("click", function() {
-    sortData(this.getAttribute('data-sortdir'))
+    sortData(this.dataset.sortdir);
   });
-}
-
+})
+// for (let btn of sortBtn) {
+//   btn.addEventListener("click", function() {
+//     sortData(this.getAttribute('data-sortdir'))
+//   });
+// }
